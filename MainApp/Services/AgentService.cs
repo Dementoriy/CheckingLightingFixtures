@@ -5,6 +5,12 @@ namespace MainApp.Services;
 
 public class AgentService : IAgentService
 {
+    private ApplicationContext _context;
+
+    public AgentService(ApplicationContext context)
+    {
+        _context = context;
+    }
     public bool AddNewLamp(Lamp lamp)
     {
         throw new NotImplementedException();

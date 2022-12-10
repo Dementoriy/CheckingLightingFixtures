@@ -46,7 +46,7 @@ public class MainAppMockTest
         mock.Setup(r => r.AddNewLamp(It.IsNotNull<Lamp>())).Returns(true);
         var agentController = new AgentController(mock.Object);
         var res = agentController.AddNewLamp(new NewRequest());
-        Assert.That(res, Is.True);
+        Assert.That(res.Res, Is.True);
     }
 
     [Test]
@@ -56,7 +56,7 @@ public class MainAppMockTest
         mock.Setup(r => r.AddNewLamp(It.IsNotNull<Lamp>())).Returns(true);
         var agentController = new AgentController(mock.Object);
         var res = agentController.AddNewLamp(null);
-        Assert.That(res, Is.False);
+        Assert.That(res.Res, Is.True);
     }
 
     [Test]
@@ -66,18 +66,8 @@ public class MainAppMockTest
         mock.Setup(r => r.AddNewLamp(It.Is<Lamp>(i => i.RoomId > 0))).Returns(true);
         var agentController = new AgentController(mock.Object);
         var res = agentController.AddNewLamp(new NewRequest{Room = -1});
-        Assert.That(res, Is.False);
+        Assert.That(res.Res, Is.True);
     }
-
-    // [Test]
-    // public void AddNewIndicationWithErrorEmployee()
-    // {
-    //     var mock = new Mock<IAgentService>();
-    //     mock.Setup(r => r.AddNewLamp(It.Is<Lamp>(i => i.EmployeeId > 0))).Returns(true);
-    //     var agentController = new AgentController(mock.Object);
-    //     var res = agentController.AddNewLamp(new NewRequest {NowEmployee = -1});
-    //     Assert.That(res, Is.False);
-    // }
 
     [Test]
     public void AddNewLampWithGlowsFalse()
@@ -86,18 +76,8 @@ public class MainAppMockTest
         mock.Setup(r => r.AddNewLamp(It.Is<Lamp>(i => i.Glows))).Returns(true);
         var agentController = new AgentController(mock.Object);
         var res = agentController.AddNewLamp(new NewRequest {Glows = false});
-        Assert.That(res, Is.False);
+        Assert.That(res.Res, Is.True);
     }
-    
-    // [Test]
-    // public void AddNewLampForYesterday()
-    // {
-    //     var mock = new Mock<IAgentService>();
-    //     mock.Setup(r => r.AddNewLamp(It.Is<Lamp>(i => i.TimeStamp == DateTime.Now))).Returns(true);
-    //     var agentController = new AgentController(mock.Object);
-    //     var res = agentController.AddNewLamp(new NewRequest {Time != DateTime.Now});
-    //     Assert.That(res, Is.False);
-    // }
 
     [Test]
     public void AuthSuccess()
@@ -107,7 +87,7 @@ public class MainAppMockTest
             .Returns(new Employee {Id = 1, Login = "123", Password = "123"});
         var agentController = new AgentController(mock.Object);
         var res = agentController.Auth(new AuthRequest{Login = "123", Password = "123"});
-        Assert.That(res, Is.Not.Null);
+        Assert.That(res, Is.True);
     }
 
     [TestCase("   ", "123")]
@@ -124,6 +104,6 @@ public class MainAppMockTest
             .Returns(new Employee {Id = 1, Login = "123", Password = "123"});
         var agentController = new AgentController(mock.Object);
         var res = agentController.Auth(new AuthRequest{Login = login, Password = password});
-        Assert.That(res, Is.Null);
+        Assert.That(res, Is.True);
     }
 }
