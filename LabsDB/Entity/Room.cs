@@ -8,5 +8,5 @@ public class Room
     }
 
     public int Id { get; set; }
-    public IEnumerable<Lamp> Lamps { get; set; }
+    public List<Lamp> Lamps { get; set; }
 }
