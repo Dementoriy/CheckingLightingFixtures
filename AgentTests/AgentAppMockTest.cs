@@ -34,22 +34,33 @@ public class AgentAppMockTest
 
     [TestCase("  ", "123")]
     [TestCase("123", "  ")]
-    [TestCase(null, "123")]
-    [TestCase("123", null)]
-    [TestCase(null, null)]
-    public async Task AuthWithErrorData(string login, string password)
+    public async Task AuthWithEmptyData(string login, string password)
     {
         var mock = new Mock<IAgentRepository>();
         mock.Setup(s =>
             s.Auth(It.Is<AuthRequest>(
-                r => !string.IsNullOrWhiteSpace(r.Login) || !string.IsNullOrWhiteSpace(r.Password)))).Returns(
-            Task.FromResult(new EmployeeMessage
-                { Id = -1, Login = "", Password = "" }));
+                r => string.IsNullOrWhiteSpace(r.Login) || !string.IsNullOrWhiteSpace(r.Password)))).Returns(
+            Task.FromResult(new EmployeeMessage()
+                {Id = -1, Login = "", Password = ""}));
         var worker = new Worker(mock.Object);
-        var res = await worker.Auth(new AuthRequest { Login = login, Password = password });
+        var res = await worker.Auth(new AuthRequest{Login = login, Password = password});
         Assert.That(res.Id, Is.EqualTo(-1));
     }
-
+    [TestCase(null, "123")]
+    [TestCase("123", null)]
+    [TestCase(null, null)]
+    public async Task AuthWithNullData(string login, string password)
+    {
+        var mock = new Mock<IAgentRepository>();
+        mock.Setup(s =>
+            s.Auth(It.Is<AuthRequest>(
+                r => string.IsNullOrWhiteSpace(r.Login) || !string.IsNullOrWhiteSpace(r.Password)))).Returns(
+            Task.FromResult(new EmployeeMessage()
+                {Id = -1, Login = "", Password = ""}));
+        var worker = new Worker(mock.Object);
+        AuthRequest? req = null;
+        Assert.Catch<ArgumentNullException>( () => req = new AuthRequest {Login = login, Password = password});
+    }
     [Test]
     public async Task AddNewLampSuccess()
     {
@@ -58,7 +69,7 @@ public class AgentAppMockTest
             .Returns(Task.FromResult(new NewResponse { Res = true }));
         var worker = new Worker(mock.Object);
         var res = await worker.AddNewLamp(new NewRequest
-            { Glows = true, Time = DateTime.Now.ToTimestamp(), Room = 1, Employee = 1});
+            { Glows = true, Room = 1, Employee = 1});
         Assert.That(res.Res, Is.True);
     }
 
@@ -81,7 +92,7 @@ public class AgentAppMockTest
             .Returns(Task.FromResult(new NewResponse { Res = true }));
         var worker = new Worker(mock.Object);
         var res = await worker.AddNewLamp(new NewRequest
-            { Glows = true, Time = DateTime.Now.ToTimestamp(),Room = -1, Employee = 1});
+            { Glows = true, Room = -1, Employee = 1});
         Assert.That(res.Res, Is.False);
     }
 
@@ -93,7 +104,7 @@ public class AgentAppMockTest
             .Returns(Task.FromResult(new NewResponse { Res = true }));
         var worker = new Worker(mock.Object);
         var res = await worker.AddNewLamp(new NewRequest
-            { Glows = true, Time = DateTime.Now.ToTimestamp(),Room = 1, Employee = -1 });
+            { Glows = true, Room = 1, Employee = -1 });
         Assert.That(res.Res, Is.False);
     }
 }

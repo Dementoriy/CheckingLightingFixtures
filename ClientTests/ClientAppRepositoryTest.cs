@@ -24,8 +24,8 @@ public class ClientAppRepositoryTest
         for (var i = 1; i < 3; i++)
         {
             var wh = new Room() {Id = i};
-            var item0 = new Lamp(true, DateTime.Now, wh);
-            var item1 = new Lamp(true, DateTime.Now, wh);
+            var item0 = new Lamp(true, wh);
+            var item1 = new Lamp(true, wh);
             item0.Room = null;
             item1.Room = null;
             wh.Lamps.Add(item0);

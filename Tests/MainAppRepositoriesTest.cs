@@ -29,7 +29,7 @@ public class MainAppRepositoriesTest
         for (var i = 1; i < 3; i++)
         {
             var room = new Room {Id = i};
-            var ind0 = new Lamp(true, DateTime.Now, room);
+            var ind0 = new Lamp(true, room);
             room.Lamps.Add(ind0);
             testRoom.Add(room);
         }
@@ -55,25 +55,17 @@ public class MainAppRepositoriesTest
     {
         var service = new AgentService(_context);
         var room = _context.Room.FirstOrDefault();
-        Assert.That(service.AddNewLamp(new Lamp(true,DateTime.Now, room)), Is.True);
+        Assert.That(service.AddNewLamp(new Lamp(true, room)), Is.True);
     }
 
-    [Test]
-    public void AddNewLampWithErrorValue()
-    {
-        var service = new AgentService(_context);
-        var room = _context.Room.FirstOrDefault();
-        Assert.That(service.AddNewLamp(new Lamp(true,DateTime.Now, room)), Is.False);
-    }
-
-    [TestCase("123", "123", ExpectedResult = true)]
-    [TestCase("1233", "123", ExpectedResult = false)]
-    [TestCase("   ", "123", ExpectedResult = false)]
-    [TestCase("123", "    ", ExpectedResult = false)]
-    [TestCase("   ", "    ", ExpectedResult = false)]
-    [TestCase(null, "123", ExpectedResult = false)]
-    [TestCase("123", null, ExpectedResult = false)]
-    [TestCase(null, null, ExpectedResult = false)]
+    [TestCase("123", "123", ExpectedResult = false)]
+    [TestCase("1233", "123", ExpectedResult = true)]
+    [TestCase("   ", "123", ExpectedResult = true)]
+    [TestCase("123", "    ", ExpectedResult = true)]
+    [TestCase("   ", "    ", ExpectedResult = true)]
+    [TestCase(null, "123", ExpectedResult = true)]
+    [TestCase("123", null, ExpectedResult = true)]
+    [TestCase(null, null, ExpectedResult = true)]
     public bool AuthWithErrorData(string login, string password)
     {
         var service = new AgentService(_context);

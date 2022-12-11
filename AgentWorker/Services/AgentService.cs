@@ -1,17 +1,22 @@
 ﻿using AgentWorker.Repositories;
+using Grpc.Net.Client;
 using MainApp;
 
 namespace AgentApp.Services;
 
 public class AgentService : IAgentRepository
 {
-    public Task<EmployeeMessage> Auth(AuthRequest request)
+    public async Task<EmployeeMessage> Auth(AuthRequest request)
     {
-        throw new NotImplementedException();
+        using var channel = GrpcChannel.ForAddress("http://localhost:5180");
+        var client = new Agent.AgentClient(channel);
+        return await client.AuthAsync(request);
     }
 
-    public Task<NewResponse> AddNewLamp(NewRequest request)
+    public async Task<NewResponse> AddNewLamp(NewRequest request)
     {
-        throw new NotImplementedException();
+        using var channel = GrpcChannel.ForAddress("http://localhost:5180");
+        var client = new Agent.AgentClient(channel);
+        return await client.AddNewLampAsync(request);
     }
 }

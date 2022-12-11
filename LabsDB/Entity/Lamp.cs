@@ -15,10 +15,10 @@ public class Lamp
         Room = new Room();
     }
 
-    public Lamp(bool glows, DateTime timeStamp, Room room)
+    public Lamp(bool glows, Room room)
     {
         Glows = glows;
-        TimeStamp = timeStamp;
+        TimeStamp = DateTime.Now;
         Room = room;
         RoomId = room.Id;
     }

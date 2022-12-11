@@ -24,14 +24,4 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-    
-    public async Task<EmployeeMessage> Auth(AuthRequest request)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<NewResponse> AddNewLoadedApp(NewRequest request)
-    {
-        throw new NotImplementedException();
-    }
 }

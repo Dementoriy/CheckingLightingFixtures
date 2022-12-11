@@ -1,5 +1,6 @@
 ﻿using LabsDB.Entity;
 using MainApp.Interfaces;
+using MainApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainApp.Controller;
@@ -18,6 +19,6 @@ public class ClientController : ControllerBase
     [HttpGet("get")]
     public IEnumerable<Room> GetRoom()
     {
-        throw new NotImplementedException();
+        return _clientService.GetAllRooms();
     }
 }

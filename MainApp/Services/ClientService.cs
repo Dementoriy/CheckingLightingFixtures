@@ -1,5 +1,6 @@
 ﻿using LabsDB.Entity;
 using MainApp.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainApp.Services;
 
@@ -13,6 +14,16 @@ public class ClientService : IClientService
     }
     public IEnumerable<Room> GetAllRooms()
     {
-        throw new NotImplementedException();
+        var rooms = _context.Room.Include(h => h.Lamps).ToList();
+        rooms = rooms.Select(h =>
+        {
+            h.Lamps = h.Lamps.Select(i =>
+            {
+                i.Room = null;
+                return i;
+            }).ToList();
+            return h;
+        }).ToList();
+        return rooms;
     }
 }

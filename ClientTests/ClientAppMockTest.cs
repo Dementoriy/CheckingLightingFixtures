@@ -23,8 +23,8 @@ public class ClientAppMockTest
         for (var i = 1; i < 3; i++)
         {
             var wh = new Room() {Id = i};
-            var item0 = new Lamp(true, DateTime.Now, wh);
-            var item1 = new Lamp(true, DateTime.Now, wh);
+            var item0 = new Lamp(true, wh);
+            var item1 = new Lamp(true, wh);
             wh.Lamps.Add(item0);
             wh.Lamps.Add(item1);
             testHouses.Add(wh);

@@ -23,9 +23,8 @@ message EmployeeMessage{
 
 message NewRequest{
   bool glows = 1;
-  google.protobuf.Timestamp time = 2;
-  int32 room = 3;
-  int32 employee = 4;
+  int32 room = 2;
+  int32 employee = 3;
 }
 
 message NewResponse{

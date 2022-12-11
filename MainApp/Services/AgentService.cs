@@ -13,21 +13,35 @@ public class AgentService : IAgentService
     }
     public bool AddNewLamp(Lamp lamp)
     {
-        throw new NotImplementedException();
+        if (lamp is null || !_context.Room.Any(h => h.Id == lamp.RoomId)) return false;
+        try
+        {
+            _context.Add(lamp);
+            _context.SaveChanges();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
     }
 
-    public LabsDB.Entity.Employee? AuthEmployee(string login, string password)
+    public Employee? AuthEmployee(string login, string password)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password)) return null;
+        return _context.Employees.FirstOrDefault(e => e.Login == login && e.Password == password);
     }
 
     public Room? GetRoomById(int id)
     {
-        throw new NotImplementedException();
+        if (id <= 0) return null;
+        return _context.Room.FirstOrDefault(h => h.Id == id);
     }
 
     public Employee? GetEmployeeById(int id)
     {
-        throw new NotImplementedException();
+        if (id <= 0) return null;
+        return _context.Employees.FirstOrDefault(e => e.Id == id);
     }
 }
