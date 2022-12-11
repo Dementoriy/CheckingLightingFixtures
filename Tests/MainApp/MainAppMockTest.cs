@@ -7,6 +7,7 @@ using MainApp.Controller;
 using MainApp.Interfaces;
 using Moq;
 using NUnit.Framework;
+using LabsDB;
 
 namespace Tests.MainApp;
 

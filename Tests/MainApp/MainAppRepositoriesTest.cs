@@ -59,15 +59,6 @@ public class MainAppRepositoriesTest
     }
 
     [Test]
-    public void AddNewLampWithNullRoom()
-    {
-        var service = new AgentService(_context);
-        Room room = null;
-        Assert.Catch<NullReferenceException>(() =>
-            service.AddNewLamp(new Lamp(true,DateTime.Now, room)));
-    }
-
-    [Test]
     public void AddNewLampWithErrorValue()
     {
         var service = new AgentService(_context);
