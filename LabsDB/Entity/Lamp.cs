@@ -1,12 +1,14 @@
-﻿namespace LabsDB.Entity;
+﻿using System.Text.Json.Serialization;
+
+namespace LabsDB.Entity;
 
 public class Lamp
 {
-    public int id { get; set; }
-    public bool Glows { get; set; }
-    public DateTime TimeStamp { get; set; }
+    [JsonPropertyName("id")] public int Id { get; set; }
+    [JsonPropertyName("glows")] public bool Glows { get; set; }
+    [JsonPropertyName("timeStamp")] public DateTime TimeStamp { get; set; }
     public Room Room { get; set; }
-    public int RoomId { get; set; }
+    [JsonPropertyName("roomId")] public int RoomId { get; set; }
     
     public Lamp()
     {

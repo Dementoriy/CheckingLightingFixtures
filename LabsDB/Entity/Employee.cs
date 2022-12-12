@@ -1,4 +1,6 @@
-﻿namespace LabsDB.Entity;
+﻿using System.Text.Json.Serialization;
+
+namespace LabsDB.Entity;
 
 public class Employee
 {
@@ -14,7 +16,7 @@ public class Employee
         Password = password;
     }
 
-    public int Id { get; set; }
-    public string Login { get; set; }
-    public string Password { get; set; }
+    [JsonPropertyName("id")] public int Id { get; set; }
+    [JsonPropertyName("login")] public string Login { get; set; }
+    [JsonPropertyName("password")] public string Password { get; set; }
 }

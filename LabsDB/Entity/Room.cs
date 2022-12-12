@@ -1,4 +1,6 @@
-﻿namespace LabsDB.Entity;
+﻿using System.Text.Json.Serialization;
+
+namespace LabsDB.Entity;
 
 public class Room
 {
@@ -7,6 +9,6 @@ public class Room
         Lamps = new List<Lamp>();
     }
 
-    public int Id { get; set; }
-    public List<Lamp> Lamps { get; set; }
+    [JsonPropertyName("id")] public int Id { get; set; }
+    [JsonPropertyName("lamps")] public List<Lamp> Lamps { get; set; }
 }

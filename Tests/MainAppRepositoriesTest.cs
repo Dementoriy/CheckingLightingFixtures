@@ -17,7 +17,7 @@ public class MainAppRepositoriesTest
     {
         var options = new DbContextOptionsBuilder<ApplicationContext>()
             .UseInMemoryDatabase($"ContextDb_{DateTime.Now.ToFileTimeUtc()}").Options;
-        _context = new ApplicationContext(options);
+        _context = new ApplicationContext(options, true);
         FillDb();
     }
 

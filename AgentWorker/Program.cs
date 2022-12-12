@@ -39,7 +39,7 @@ public static class Program
         bool check = true;
         while (check)
         {
-            Console.WriteLine("Введите 1 или 0");
+            Console.WriteLine("Введите true или false");
             try
             {
                 isGlows = bool.Parse(Console.ReadLine());
@@ -47,7 +47,7 @@ public static class Program
             }
             catch
             {
-                Console.WriteLine("Вы ввели не число");
+                Console.WriteLine("Вы ввели некорректные данные");
             }
         }
         

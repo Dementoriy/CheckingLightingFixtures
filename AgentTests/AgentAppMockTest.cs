@@ -1,7 +1,5 @@
 ﻿using AgentApp;
 using AgentWorker.Repositories;
-using Google.Protobuf.WellKnownTypes;
-using LabsDB.Entity;
 using MainApp;
 using Moq;
 using NUnit.Framework;
@@ -104,7 +102,7 @@ public class AgentAppMockTest
             .Returns(Task.FromResult(new NewResponse { Res = true }));
         var worker = new Worker(mock.Object);
         var res = await worker.AddNewLamp(new NewRequest
-            { Glows = true, Room = 1, Employee = -1 });
+            { Glows = true, Room = 1, Employee = -1});
         Assert.That(res.Res, Is.False);
     }
 }
