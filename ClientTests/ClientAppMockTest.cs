@@ -34,7 +34,7 @@ public class ClientAppMockTest
     }
 
     [Test]
-    public async Task GetRoomsSuccess()
+    public async Task GetRoomSuccess()
     {
         var mock = new Mock<IClientRepositories>();
         mock.Setup(s => s.GetAllRooms()).Returns(Task.FromResult(_testRooms));
