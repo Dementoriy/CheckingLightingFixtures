@@ -75,7 +75,7 @@ public class ClientAppRepositoryTest
     }
     
     [Test]
-    public async Task GetRoomHttpSuccess2()
+    public async Task GetRoomHttpSuccess()
     {
         var clientHandlerStub = new DelegatingHandlerStub(_testRoom);
         var client = new HttpClient(clientHandlerStub);
